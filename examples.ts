@@ -1,43 +1,62 @@
 // examples.ts
-import { makeState } from "makestate"
+import { makeState } from "makest";
+import readline from "node:readline";
 
-const toggle = makeState<boolean>(false)
-const word = makeState<string>("Hello")
-const counter = makeState<number>(0)
+// Setup the three main types
+const counter = makeState<number>(0);
+const word = makeState<string>("Hello");
+const active = makeState<boolean>(false);
 
-console.log("Initial values:")
-console.log("toggle:", toggle.value())
-console.log("word:", word.value())
-console.log("counter:", counter.value())
+const C = {
+  cyan: (t: any) => `\x1b[36m${t}\x1b[0m`,
+  green: (t: any) => `\x1b[32m${t}\x1b[0m`,
+  red: (t: any) => `\x1b[31m${t}\x1b[0m`,
+  dim: (t: any) => `\x1b[90m${t}\x1b[0m`,
+  bold: (t: any) => `\x1b[1m${t}\x1b[0m`,
+};
 
-// 1 second → increment counter
-setTimeout(() => {
-  counter.setValue(counter.value() + 1)
-  console.log("Counter +1:", counter.value())
-}, 1000)
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-// 2 seconds → toggle state
-setTimeout(() => {
-  toggle.setValue(true)
-  console.log("Toggle updated:", toggle.value())
-}, 2000)
+const showState = () => {
+  console.clear();
+  console.log(`${C.bold("Makest Makestate instance")}`);
+  console.log(`${C.dim("━━━━━━━━━━━━━━━━━━━━━━━━")}`);
 
-// 3 seconds → update word
-setTimeout(() => {
-  word.setValue("Updated after 3 seconds")
-  console.log("Word updated:", word.value())
-}, 3000)
+  // Display all three types
+  console.log(`${C.cyan("Number  (Counter) :")} ${C.green(counter.value())}`);
+  console.log(`${C.cyan("String  (Word)    :")} "${C.green(word.value())}"`);
+  console.log(
+    `${C.cyan("Boolean (Toggle)  :")} ${active.value() ? C.green("TRUE") : C.red("FALSE")}`,
+  );
 
-// 4 seconds → increment counter again
-setTimeout(() => {
-  counter.setValue(counter.value() + 5)
-  console.log("Counter +5:", counter.value())
-}, 4000)
+  console.log(`${C.dim("━━━━━━━━━━━━━━━━━━━━━━━━")}`);
+  console.log(
+    `Commands: ${C.bold("add")} | ${C.bold("set <text>")} | ${C.bold("toggle")} | ${C.bold("exit")}`,
+  );
+};
 
-// 5 seconds → final state snapshot
-setTimeout(() => {
-  console.log("Final state:")
-  console.log("toggle:", toggle.value())
-  console.log("word:", word.value())
-  console.log("counter:", counter.value())
-}, 5000)
+const startApp = () => {
+  showState();
+  rl.question(`${C.cyan("> ")}`, (input) => {
+    const [cmd, ...args] = input.trim().toLowerCase().split(" ");
+
+    if (cmd === "add") {
+      const amount = Number(args[0]) || 1;
+      counter.setValue(counter.value() + amount);
+    } else if (cmd === "set") {
+      word.setValue(args.join(" ") || "No text");
+    } else if (cmd === "toggle") {
+      active.setValue(!active.value());
+    } else if (cmd === "exit") {
+      console.log("Peace out!");
+      process.exit();
+    }
+
+    startApp();
+  });
+};
+
+startApp();
