@@ -1,4 +1,4 @@
-# makeState
+# makest
 
 A simple TypeScript state utility using classes.  
 It allows you to create a state container with getter and setter methods, fully typed and easy to use.
@@ -17,10 +17,10 @@ It allows you to create a state container with getter and setter methods, fully 
 
 ## Installation
 
-Copy `makestate.ts` into your project:
+Copy `index.ts` into your project:
 
 ```ts
-import { makeState } from "./makestate"
+import { makeState } from "./makest"
 ```
 
 ---
@@ -88,7 +88,7 @@ setTimeout(() => console.log(counter.value()), 4000) // 6
 
 ---
 
-## See [`examples.ts`](https://github.com/Spectra010s/makestate/blob/examples.ts) for full working examples.
+## See [`examples.ts`](https://github.com/Spectra010s/makest/blob/examples.ts) for full working examples.
 
 ## Why use this instead of a plain variable?
 

@@ -8,5 +8,5 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["makestate.ts"] 
+  "include": ["index.ts"] 
 }
