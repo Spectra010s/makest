@@ -1,0 +1,21 @@
+{
+  "name": "makestate",
+  "version": "0.1.0",
+  "description": "A simple TypeScript utility for managing state using classes",
+  "main": "dist/makestate.js",
+  "types": "dist/makestate.d.ts",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "typescript",
+    "state",
+    "class"
+  ],
+  "license": "MIT"
+}
