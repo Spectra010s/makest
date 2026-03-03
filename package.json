@@ -18,5 +18,8 @@
     "class",
     "makest"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "makest": "file:makest-0.1.1.tgz"
+  }
 }
