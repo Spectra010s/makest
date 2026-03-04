@@ -1,6 +1,6 @@
 {
   "name": "makest",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A simple TypeScript utility for managing state using classes",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
